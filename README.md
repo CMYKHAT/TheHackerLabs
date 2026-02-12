@@ -19,7 +19,4 @@ Herramientas: **Kali Linux, Nmap, Metasploit, Burp Suite, Hydra, Gobuster, Wires
 ## 📌 Metodología aplicada
 Reconocimiento → Enumeración → Explotación → Post-explotación → Documentación
 
-## 📫 Contacto
-**Pablo Romo González** –  
-📧 pabloromogonzalez@gmail.com  
-🔗 LinkedIn: linkedin.com/in/pabloromogonzalez
+

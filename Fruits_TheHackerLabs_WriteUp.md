@@ -98,7 +98,7 @@ parámetros.
 
 Se devuelve el contenido de `/etc/passwd`.
 
-✔ Vulnerabilidad confirmada: **Local File Inclusion (LFI)**.
+ Vulnerabilidad confirmada: **Local File Inclusion (LFI)**.
 
 ------------------------------------------------------------------------
 

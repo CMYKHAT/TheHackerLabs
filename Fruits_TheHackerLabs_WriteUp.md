@@ -2,10 +2,10 @@
 
 ##  Información General
 
--   **Nombre:** Fruits\
--   **Dificultad:** Easy / Beginner\
--   **IP Víctima:** 10.0.50.30\
--   **IP Atacante:** 10.0.50.4\
+-   **Nombre:** Fruits
+-   **Dificultad:** Easy / Beginner
+-   **IP Víctima:** 10.0.50.30
+-   **IP Atacante:** 10.0.50.4
 -   **Objetivo:** Obtener acceso inicial y escalar privilegios hasta
     root
 
@@ -26,7 +26,7 @@ nmap -sC -sV -p- 10.0.50.30
 
 ### Servicios detectados
 
--   **SSH (22)** → Posible vector de acceso remoto\
+-   **SSH (22)** → Posible vector de acceso remoto
 -   **HTTP (80)** → Superficie principal de ataque
 
 ------------------------------------------------------------------------
@@ -106,8 +106,8 @@ Se devuelve el contenido de `/etc/passwd`.
 
 La LFI permite:
 
--   Leer archivos del sistema\
--   Identificar usuarios válidos\
+-   Leer archivos del sistema
+-   Identificar usuarios válidos
 -   Revisar código fuente
 
 Usuario identificado:
@@ -124,7 +124,7 @@ hydra -l bananaman -P /usr/share/wordlists/rockyou.txt ssh://10.0.50.30 -t 4 -vV
 
 ##  Credenciales encontradas
 
--   **Usuario:** bananaman\
+-   **Usuario:** bananaman
 -   **Password:** c****c
 
 ------------------------------------------------------------------------
@@ -186,19 +186,19 @@ sudo /usr/bin/find /root/root.txt -exec cat {} \;
 
 ##  Cadena de Ataque
 
-1.  Reconocimiento con Nmap\
-2.  Enumeración web\
-3.  Fuzzing → Descubrimiento de `/fruits.php`\
-4.  Explotación de LFI\
-5.  Obtención de usuario válido\
-6.  Fuerza bruta SSH\
+1.  Reconocimiento con Nmap
+2.  Enumeración web
+3.  Fuzzing → Descubrimiento de `/fruits.php`
+4.  Explotación de LFI
+5.  Obtención de usuario válido
+6.  Fuerza bruta SSH
 7.  Escalada mediante `sudo find`
 
 ------------------------------------------------------------------------
 
 #  Lecciones Aprendidas
 
--   Un archivo con **size 1** puede ser clave.\
--   La LFI permite enumeración crítica del sistema.\
--   Siempre revisar `sudo -l`.\
+-   Un archivo con **size 1** puede ser clave.
+-   La LFI permite enumeración crítica del sistema.
+-   Siempre revisar `sudo -l`.
 -   GTFOBins es fundamental en CTFs.

@@ -125,7 +125,7 @@ hydra -l bananaman -P /usr/share/wordlists/rockyou.txt ssh://10.0.50.30 -t 4 -vV
 ##  Credenciales encontradas
 
 -   **Usuario:** bananaman\
--   **Password:** celtic
+-   **Password:** c****c
 
 ------------------------------------------------------------------------
 

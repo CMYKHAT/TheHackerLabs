@@ -2,10 +2,10 @@
 
 ## Información General
 
--   Nombre: Mortadela\
--   IP Víctima: 10.0.50.41\
--   IP Atacante: Kali Linux\
--   Dificultad: Easy / Beginner\
+-   Nombre: Mortadela
+-   IP Víctima: 10.0.50.41
+-   IP Atacante: Kali Linux
+-   Dificultad: Easy / Beginner
 -   Objetivo: Obtener acceso root
 
 ------------------------------------------------------------------------
@@ -57,7 +57,7 @@ hydra -L /usr/share/seclists/Usernames/top-usernames-shortlist.txt -P /usr/share
 
 Credenciales obtenidas:
 
-    root : cassandra
+    root : c*******a
 
 Conexión:
 
@@ -89,7 +89,7 @@ SELECT * FROM usuarios;
 Resultado:
 
     usuario: mortadela
-    contraseña: Juanikokukunero8
+    contraseña: J**************8
 
 ------------------------------------------------------------------------
 
@@ -132,7 +132,7 @@ cat /var/www/html/wordpress/wp-config.php
 Credenciales encontradas:
 
     DB_USER: wordpress
-    DB_PASSWORD: lolalolitalola
+    DB_PASSWORD: l************a
 
 (No utilizadas para escalada directa).
 
@@ -159,7 +159,7 @@ fcrackzip -u -D -v -p /usr/share/wordlists/rockyou.txt muyconfidencial.zip
 
 Password:
 
-    pinkgirl
+    p******l
 
 ------------------------------------------------------------------------
 
@@ -201,7 +201,7 @@ john --wordlist=dic.txt hash.txt
 
 Password obtenida:
 
-    Maritrini12345
+    M************5
 
 ------------------------------------------------------------------------
 
@@ -213,7 +213,7 @@ kpcli --kdb Database.kdbx
 
 Credenciales encontradas:
 
-    root : Juanikonokukunero
+    root : J***************o
 
 ------------------------------------------------------------------------
 

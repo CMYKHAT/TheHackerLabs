@@ -1,13 +1,13 @@
 # Write-up – Máquina **pizzahot**
 
-## 🎯 Objetivo
+## Objetivo
 Comprometer completamente la máquina **pizzahot**, obteniendo acceso **root**, documentando el proceso paso a paso con mentalidad OSCP.
 
 ---
 
-## 1️⃣ Enumeración inicial
+## 1 Enumeración inicial
 
-### 🔍 Escaneo de puertos
+###  Escaneo de puertos
 Se identificaron únicamente dos servicios expuestos:
 
 - **22/tcp** – SSH
@@ -17,9 +17,9 @@ Esto ya sugiere un vector claro: web + posible reutilización de credenciales ha
 
 ---
 
-## 2️⃣ Enumeración web (HTTP – puerto 80)
+## 2️ Enumeración web (HTTP – puerto 80)
 
-### 📄 Inspección manual
+###  Inspección manual
 La web corresponde a una **plantilla pública** (`Yummy` de BootstrapMade). En el código fuente del `index.html` aparece un comentario relevante donde se menciona que algunos usuarios usan nombres como:
 
 > `pizzapiña`
@@ -28,7 +28,7 @@ Este detalle es clave y actúa como **pista directa de usuario**.
 
 ---
 
-### 📁 Enumeración de directorios
+###  Enumeración de directorios
 Usando `gobuster` se descubrieron:
 
 - `/assets/`
@@ -46,7 +46,7 @@ Esto confirma que la web **no es el vector principal**, sino una distracción.
 
 ---
 
-## 3️⃣ Ataque a SSH (credenciales)
+## 3️ Ataque a SSH (credenciales)
 
 Dado que:
 - El usuario `pizzapiña` aparece como pista
@@ -54,7 +54,7 @@ Dado que:
 
 Se realizó un ataque de fuerza bruta con `hydra` contra el servicio SSH.
 
-### ✅ Resultado
+###  Resultado
 Credenciales válidas encontradas:
 
 - **Usuario:** `pizzapiña`
@@ -68,7 +68,7 @@ ssh pizzapiña@10.0.50.7
 
 ---
 
-## 4️⃣ Usuario inicial y enumeración local
+## 4️ Usuario inicial y enumeración local
 
 Dentro del sistema:
 
@@ -86,11 +86,11 @@ Esto permite ejecutar **gcc como el usuario `pizzasinpiña`**.
 
 ---
 
-## 5️⃣ Escalada lateral (pizzapiña → pizzasinpiña)
+## 5️ Escalada lateral (pizzapiña → pizzasinpiña)
 
 Aunque `sudo` solo permite ejecutar `/usr/bin/gcc`, **gcc permite ejecutar otros binarios mediante argumentos**.
 
-### 💣 Abuso de `gcc -wrapper`
+###  Abuso de `gcc -wrapper`
 
 El flag `-wrapper` permite indicar un programa que se ejecuta durante el proceso de compilación.
 
@@ -100,7 +100,7 @@ Comando explotado:
 sudo -u pizzasinpiña /usr/bin/gcc -wrapper /bin/bash,-s .
 ```
 
-### ✅ Resultado
+###  Resultado
 Shell obtenida como:
 
 ```bash
@@ -112,7 +112,7 @@ Esto es un **abuso de argumentos no restringidos en sudo**.
 
 ---
 
-## 6️⃣ Enumeración como pizzasinpiña
+## 6️ Enumeración como pizzasinpiña
 
 Ejecutando `sudo -l`:
 
@@ -126,11 +126,11 @@ El binario `man` es ejecutable como **root sin contraseña**.
 
 ---
 
-## 7️⃣ Escalada final a root (GTFOBins)
+## 7️ Escalada final a root (GTFOBins)
 
 `man` utiliza el pager `less`, el cual permite ejecutar comandos del sistema.
 
-### 🚀 Explotación
+###  Explotación
 
 ```bash
 sudo /usr/bin/man man
@@ -146,7 +146,7 @@ Dentro del manual:
 
 ---
 
-## 8️⃣ Acceso root
+## 8️ Acceso root
 
 ```bash
 whoami
@@ -161,7 +161,7 @@ cat /root/root.txt
 
 ---
 
-## 🏁 Conclusión
+## Conclusión
 
 La máquina **pizzahot** combina:
 
@@ -172,9 +172,9 @@ La máquina **pizzahot** combina:
 
 Todo el proceso es **realista, OSCP-like y muy bien encadenado**.
 
-✔️ Máquina completamente comprometida.
+ Máquina completamente comprometida.
 
 ---
 
-🍕 **pizzahot – OWNED** 🍕
+ **pizzahot – OWNED** 
 

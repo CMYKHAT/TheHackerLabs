@@ -1,6 +1,6 @@
-# 🖥️ Write‑Up --- Windows IIS 7.5 Privilege Escalation (JuicyPotato)
+#  Write‑Up --- Windows IIS 7.5 Privilege Escalation (JuicyPotato)
 
-## 📌 Información General
+##  Información General
 
 -   **Target:** 10.0.50.42\
 -   **Sistema Operativo:** Windows Server 2008 R2 Datacenter x64\
@@ -10,7 +10,7 @@
 
 ------------------------------------------------------------------------
 
-# 🔎 Enumeración
+#  Enumeración
 
 Escaneo completo de puertos:
 
@@ -39,7 +39,7 @@ Observaciones:
 
 ------------------------------------------------------------------------
 
-# 🌐 Fuzzing Web
+#  Fuzzing Web
 
 Fuzzing de directorios:
 
@@ -61,7 +61,7 @@ Directorio donde se almacenan los archivos subidos.
 
 ------------------------------------------------------------------------
 
-# 📂 Abuso de web.config
+#  Abuso de web.config
 
 Se prueba subir un archivo `.config`:
 
@@ -81,7 +81,7 @@ Confirmamos:
 
 ------------------------------------------------------------------------
 
-# 💥 Obtención de RCE
+#  Obtención de RCE
 
 Se sube un `web.config` malicioso que permite ejecución ASP:
 
@@ -114,7 +114,7 @@ Accediendo al archivo subido obtenemos **Remote Command Execution
 
 ------------------------------------------------------------------------
 
-# 🐚 Acceso Inicial (Reverse Shell)
+#  Acceso Inicial (Reverse Shell)
 
 Copiamos netcat:
 
@@ -174,7 +174,7 @@ Flag:
 
 ------------------------------------------------------------------------
 
-# 🔐 Escalada de Privilegios
+#  Escalada de Privilegios
 
 Enumeramos privilegios:
 
@@ -192,7 +192,7 @@ Sistema vulnerable:
 
 ------------------------------------------------------------------------
 
-# 🚀 JuicyPotato Exploit
+#  JuicyPotato Exploit
 
 Copiamos binario:
 
@@ -218,7 +218,7 @@ Shell obtenida como:
 
 ------------------------------------------------------------------------
 
-# 🏆 Root Flag
+#  Root Flag
 
 ``` cmd
 cd C:\Users\Administrador\Desktop
@@ -228,7 +228,7 @@ type root.txt
 
 ------------------------------------------------------------------------
 
-# 📊 Cadena de Ataque
+#  Cadena de Ataque
 
 1.  Enumeración → IIS vulnerable\
 2.  Upload funcional → web.config abuse\
@@ -239,7 +239,7 @@ type root.txt
 
 ------------------------------------------------------------------------
 
-# 🛡️ Mitigaciones
+#  Mitigaciones
 
 -   Actualizar IIS y sistema operativo
 -   Restringir subida de archivos
@@ -250,7 +250,7 @@ type root.txt
 
 ------------------------------------------------------------------------
 
-# 🎯 Conclusión
+#  Conclusión
 
 Se logró compromiso total del sistema mediante:
 
@@ -260,7 +260,7 @@ Se logró compromiso total del sistema mediante:
 
 ------------------------------------------------------------------------
 
-# ⭐ Habilidades Demostradas
+#  Habilidades Demostradas
 
 -   Web Exploitation (IIS)
 -   File Upload Bypass

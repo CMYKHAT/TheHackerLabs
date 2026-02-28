@@ -14,7 +14,7 @@
 
 ---
 
-## Cadena de Ataque
+Cadena de Ataque
 
 ```
 Enumeración Web → Comentario HTML → Directorio /summary → Credenciales débiles → SSH → sudo base64 → root
@@ -22,7 +22,7 @@ Enumeración Web → Comentario HTML → Directorio /summary → Credenciales d�
 
 ---
 
-## 1. Reconocimiento
+1. Reconocimiento
 
 Escaneo inicial de puertos:
 
@@ -41,7 +41,7 @@ El puerto 80 mostraba la página por defecto de Apache.
 
 ---
 
-## 2. Enumeración Web
+2. Enumeración Web
 
 ### Análisis del código fuente
 
@@ -81,7 +81,7 @@ Pista clara de credenciales débiles en el sistema.
 
 ---
 
-## 3. Acceso Inicial – Fuerza Bruta SSH
+3 Acceso Inicial – Fuerza Bruta SSH
 
 Confirmado que SSH permitía autenticación por contraseña, se procedió a fuerza bruta controlada:
 
@@ -104,7 +104,7 @@ ssh info@10.0.50.6
 
 ---
 
-## 4. Post-Explotación
+4. Post-Explotación
 
 ### Estabilización de la shell
 
@@ -132,7 +132,7 @@ El usuario `info` puede ejecutar `base64` como root **sin contraseña**.
 
 ## 5. Escalada de Privilegios – Abuso de sudo base64
 
-`base64` permite leer archivos del sistema. Según [GTFOBins](https://gtfobins.github.io/gtfobins/base64/):
+`base64` permite leer archivos del sistema.
 
 ```bash
 sudo /usr/bin/base64 /root/root.txt | base64 -d
@@ -143,11 +143,11 @@ Esto permite:
 - Decodificar el contenido en base64
 - Obtener el **root flag**
 
-✅ **Sistema comprometido como root.**
+**Sistema comprometido como root.**
 
 ---
 
-## 6. Vulnerabilidades Identificadas
+6. Vulnerabilidades Identificadas
 
 | Vulnerabilidad | Descripción |
 |---|---|
@@ -157,7 +157,7 @@ Esto permite:
 
 ---
 
-## 7. Mitigaciones Recomendadas
+7. Mitigaciones Recomendadas
 
 - Deshabilitar el directory listing en Apache (`Options -Indexes`)
 - Forzar política de contraseñas seguras
@@ -166,13 +166,12 @@ Esto permite:
 
 ---
 
-## 8. Lecciones Aprendidas
+8. Lecciones Aprendidas
 
 - Siempre revisar el **código fuente** de la página — los comentarios HTML pueden revelar rutas ocultas.
 - Un mensaje como "Cambia la contraseña" es una pista directa de credenciales débiles.
 - `sudo -l` debe ser uno de los primeros comandos tras obtener acceso.
-- Consultar **GTFOBins** para cualquier binario con permisos sudo inusuales.
+
 
 ---
 
-*Write-up educativo – The Hacker Labs | Autor: Pablo Romo González*

